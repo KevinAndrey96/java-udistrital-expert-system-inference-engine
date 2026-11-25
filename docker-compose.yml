@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  inference-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: udistrital-inference-engine
+    environment:
+      - JAVA_OPTS=-Xms64m -Xmx256m
+    command: ["--demo"]

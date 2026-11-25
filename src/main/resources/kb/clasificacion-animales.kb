@@ -1,0 +1,15 @@
+# Base de Conocimiento: Clasificacion Zoologica
+# Reglas taxonomicas basadas en caracteristicas biologicas
+
+FACT Pelo=si [CF=1.00]
+FACT ComeCarne=si [CF=1.00]
+FACT ColorLeonado=si [CF=0.95]
+FACT RayasNegras=si [CF=0.90]
+
+RULE R1_MamiferoPelo: IF Pelo=si THEN Clase=Mamifero [CF=1.00] [PRIORITY=10]
+RULE R2_MamiferoLeche: IF DaLeche=si THEN Clase=Mamifero [CF=1.00] [PRIORITY=10]
+RULE R3_AvePlumas: IF TienePlumas=si THEN Clase=Ave [CF=1.00] [PRIORITY=10]
+RULE R4_CarnivoroDientes: IF ComeCarne=si THEN Orden=Carnivoro [CF=0.95] [PRIORITY=8]
+RULE R5_Tigre: IF Clase=Mamifero AND Orden=Carnivoro AND ColorLeonado=si AND RayasNegras=si THEN Especie=Tigre [CF=0.98] [PRIORITY=9]
+RULE R6_Leopardo: IF Clase=Mamifero AND Orden=Carnivoro AND ColorLeonado=si AND ManchasOscuras=si THEN Especie=Leopardo [CF=0.98] [PRIORITY=9]
+RULE R7_Avestruz: IF Clase=Ave AND NoVuela=si AND CuelloLargo=si THEN Especie=Avestruz [CF=0.95] [PRIORITY=7]

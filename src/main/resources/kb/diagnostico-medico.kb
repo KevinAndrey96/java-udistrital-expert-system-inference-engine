@@ -1,0 +1,17 @@
+# Base de Conocimiento: Diagnostico Clinico General (Shortliffe / MYCIN style)
+# Atributos: Fiebre, Tos, DolorGarganta, DificultadRespiratoria, Cansancio
+# Metas: InfeccionRespiratoria, GripeComun, Neumonia, RequiereHospitalizacion
+
+# Hechos Iniciales
+FACT Fiebre=alta [CF=0.90]
+FACT Tos=persistente [CF=0.85]
+FACT DolorGarganta=si [CF=0.75]
+FACT DificultadRespiratoria=leve [CF=0.60]
+
+# Reglas de Inferencia
+RULE R1_Faringitis: IF DolorGarganta=si AND Fiebre=alta THEN InfeccionRespiratoria=alta [CF=0.75] [PRIORITY=5]
+RULE R2_Gripe: IF Fiebre=alta AND Tos=persistente THEN InfeccionRespiratoria=alta [CF=0.85] [PRIORITY=6]
+RULE R3_DiagnosticoGripe: IF InfeccionRespiratoria=alta THEN Diagnostico=GripeViral [CF=0.90] [PRIORITY=7]
+RULE R4_Neumonia: IF Tos=persistente AND DificultadRespiratoria=severa THEN Diagnostico=Neumonia [CF=0.95] [PRIORITY=10]
+RULE R5_Hospitalizacion: IF Diagnostico=Neumonia THEN RequiereHospitalizacion=si [CF=0.98] [PRIORITY=10]
+RULE R6_Ambulatorio: IF Diagnostico=GripeViral THEN Tratamiento=AmbulatorioConReposo [CF=0.92] [PRIORITY=4]

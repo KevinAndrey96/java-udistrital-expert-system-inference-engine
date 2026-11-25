@@ -19,6 +19,7 @@ nbproject/Package-*.bash
 # Bytecode
 *.class
 *.jar
+!AbsoluteLayout.jar
 *.war
 *.ear
 

@@ -1,0 +1,17 @@
+# Universidad Distrital Francisco Jose de Caldas
+# Base de Conocimiento: Prediccion de Clima (Weather Forecasting)
+# Atributos: SolHoy, SolAyer, PresionBarometrica, Humedad, Viento
+# Metas: SolManana, Tormenta, TardeAgradable
+
+# Hechos Iniciales
+FACT SolHoy=1 [CF=1.00]
+FACT SolAyer=1 [CF=0.90]
+FACT PresionBarometrica=alta [CF=0.85]
+FACT Humedad=baja [CF=0.80]
+
+# Reglas de Inferencia
+RULE R1: IF SolHoy=1 AND SolAyer=1 THEN SolManana=1 [CF=0.95] [PRIORITY=10]
+RULE R2: IF PresionBarometrica=alta AND Humedad=baja THEN ClimaEstable=1 [CF=0.90] [PRIORITY=8]
+RULE R3: IF SolManana=1 AND ClimaEstable=1 THEN TardeAgradable=1 [CF=0.92] [PRIORITY=7]
+RULE R4: IF PresionBarometrica=baja AND Humedad=alta THEN Tormenta=1 [CF=0.85] [PRIORITY=9]
+RULE R5: IF Tormenta=1 THEN AlertaClimatica=roja [CF=0.99] [PRIORITY=10]

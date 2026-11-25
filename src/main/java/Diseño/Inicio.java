@@ -39,8 +39,10 @@ public class Inicio extends javax.swing.JFrame {
         rgl = 0;
         txt_no.setEditable(false);
         txt_no.setText(String.valueOf(Inicio.rgl+1));
-        Chulito = new ImageIcon("src/Imagenes/Chulito.png");    
-        Alerta = new ImageIcon("src/Imagenes/Advertencia.png");
+        java.net.URL chulitoUrl = getClass().getResource("/Imagenes/Chulito.png");
+        Chulito = chulitoUrl != null ? new ImageIcon(chulitoUrl) : new ImageIcon("src/Imagenes/Chulito.png");    
+        java.net.URL alertaUrl = getClass().getResource("/Imagenes/Advertencia.png");
+        Alerta = alertaUrl != null ? new ImageIcon(alertaUrl) : new ImageIcon("src/Imagenes/Advertencia.png");
         modelo = new DefaultListModel();
         modelo1 = new DefaultListModel();
         JListOM.setSelectedIndex(0);
@@ -565,7 +567,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_minMIMouseClicked
 
     private void CerrarMIMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMIMousePressed
-        Icon Salir = new ImageIcon("src/Imagenes/Salir.png");
+        java.net.URL salirUrl = getClass().getResource("/Imagenes/Salir.png");
+        Icon Salir = salirUrl != null ? new ImageIcon(salirUrl) : new ImageIcon("src/Imagenes/Salir.png");
         int resp=JOptionPane.showConfirmDialog(this, "¿Esta seguro de que desea salir?", "Confirmar",
             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, Salir);
         if(resp==JOptionPane.YES_OPTION){
@@ -646,7 +649,7 @@ private void InferirHaciaAdelante(ArrayList AR)
         String VC[]=AR.get(i).toString().split("-");
         rta[i]=JOptionPane.showInputDialog("Pregunta "+(i+1)+"\n"+VC[2]);
                         
-        if(rta[i].equals(VC[1]))
+        if(rta[i] != null && rta[i].equals(VC[1]))
         {
             JOptionPane.showMessageDialog(this, "Contestaste verdadero H:"+VC[3]);
             FC[Integer.parseInt(VC[3])]++;
@@ -762,7 +765,52 @@ private void InferirHaciaAdelante(ArrayList AR)
     }//GEN-LAST:event_txt_atr1ActionPerformed
 
     private void btn_Actualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Actualizar1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            edu.udistrital.expert.model.KnowledgeBase kb = new edu.udistrital.expert.model.KnowledgeBase("Prediccion de Clima UD", "Sistema experto UD");
+
+            edu.udistrital.expert.model.Rule r1 = new edu.udistrital.expert.model.Rule(1, "R1_SolManana", null,
+                    new edu.udistrital.expert.model.Fact("SolManana", "1", "Manana hara sol", 0.95), 0.95, 10);
+            r1.addPremise(new edu.udistrital.expert.model.Premise("SolHoy", edu.udistrital.expert.model.Premise.Operator.EQUALS, "1", "Hizo sol hoy?"));
+            r1.addPremise(new edu.udistrital.expert.model.Premise("SolAyer", edu.udistrital.expert.model.Premise.Operator.EQUALS, "1", "Hizo sol ayer?"));
+            kb.addRule(r1);
+
+            edu.udistrital.expert.model.Rule r2 = new edu.udistrital.expert.model.Rule(2, "R2_LluviaManana", null,
+                    new edu.udistrital.expert.model.Fact("LluviaManana", "1", "Manana llovera", 0.90), 0.90, 8);
+            r2.addPremise(new edu.udistrital.expert.model.Premise("LluviaHoy", edu.udistrital.expert.model.Premise.Operator.EQUALS, "1", "Hoy llovio?"));
+            r2.addPremise(new edu.udistrital.expert.model.Premise("LluviaAyer", edu.udistrital.expert.model.Premise.Operator.EQUALS, "1", "Ayer llovio?"));
+            kb.addRule(r2);
+
+            String meta = JOptionPane.showInputDialog(this, "Ingrese la meta a inferir hacia atras (ej: SolManana, LluviaManana):", "SolManana");
+            if (meta == null || meta.trim().isEmpty()) return;
+
+            edu.udistrital.expert.engine.InferenceEngine engine = new edu.udistrital.expert.engine.InferenceEngine(kb, (premise) -> {
+                String ans = JOptionPane.showInputDialog(this, "Para verificar la meta, responda:\n" + premise.getPromptQuestion() + "\n(1 = Si, 0 = No)", "1");
+                if (ans == null) return null;
+                return new edu.udistrital.expert.model.Fact(premise.getAttribute(), ans.trim(), 0.9);
+            });
+
+            edu.udistrital.expert.engine.InferenceResult res = engine.inferBackward(meta.trim());
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("Resultado Encadenamiento Hacia Atras:\n");
+            sb.append("Meta: ").append(res.getTargetGoal()).append("\n");
+            sb.append("Demostrada: ").append(res.isSuccess() ? "SI" : "NO").append("\n");
+            if (res.getResultingFact() != null) {
+                sb.append("Conclusion: ").append(res.getResultingFact().getName())
+                  .append(" = ").append(res.getResultingFact().getValue())
+                  .append(" (CF: ").append(String.format("%.2f%%", res.getResultingFact().getCertaintyFactor() * 100)).append(")\n");
+            }
+            sb.append("\nTraza:\n").append(res.getTraceLog());
+
+            javax.swing.JTextArea textArea = new javax.swing.JTextArea(sb.toString());
+            textArea.setEditable(false);
+            textArea.setRows(15);
+            textArea.setColumns(45);
+            javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(textArea);
+            JOptionPane.showMessageDialog(this, scrollPane, "Inferencia Hacia Atras - UD", JOptionPane.INFORMATION_MESSAGE, Chulito);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error en inferencia hacia atras: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE, Alerta);
+        }
     }//GEN-LAST:event_btn_Actualizar1ActionPerformed
 
     /**
