@@ -1,6 +1,6 @@
 # Universidad Distrital - Expert System & Logic Inference Engine
 
-[![Build Status](https://github.com/KevinAndrey96/udistrital-expert-system-inference-engine-java/actions/workflows/ci.yml/badge.svg)](https://github.com/KevinAndrey96/udistrital-expert-system-inference-engine-java/actions)
+[![Build Status](https://github.com/KevinAndrey96/java-udistrital-expert-system-inference-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/KevinAndrey96/java-udistrital-expert-system-inference-engine/actions)
 [![Java Support](https://img.shields.io/badge/Java-8%20%7C%2011%20%7C%2017%20%7C%2021-orange.svg)](https://www.oracle.com/java/)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2F%20Production%20System-blue.svg)]()
 [![Certainty Factors](https://img.shields.io/badge/Uncertainty-MYCIN%20Shortliffe-brightgreen.svg)]()
@@ -184,12 +184,12 @@ Bases de conocimiento incluidas en `src/main/resources/kb/`:
 
 ### 1. Demostracion Multidominio Integrada
 ```bash
-java -cp target/udistrital-expert-system-inference-engine-java-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli --demo
+java -cp target/java-udistrital-expert-system-inference-engine-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli --demo
 ```
 
 ### 2. Encadenamiento hacia Adelante con Archivo `.kb`
 ```bash
-java -cp target/udistrital-expert-system-inference-engine-java-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli \
+java -cp target/java-udistrital-expert-system-inference-engine-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli \
   --kb src/main/resources/kb/clasificacion-animales.kb \
   --mode forward \
   --goal Especie \
@@ -198,14 +198,14 @@ java -cp target/udistrital-expert-system-inference-engine-java-1.0.0.jar:Absolut
 
 ### 3. Saturacion Completa de la Base de Hechos
 ```bash
-java -cp target/udistrital-expert-system-inference-engine-java-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli \
+java -cp target/java-udistrital-expert-system-inference-engine-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli \
   --kb src/main/resources/kb/clima-prediccion.kb \
   --mode saturate
 ```
 
 ### 4. Encadenamiento hacia Atras con Hechos Iniciales Inyectados
 ```bash
-java -cp target/udistrital-expert-system-inference-engine-java-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli \
+java -cp target/java-udistrital-expert-system-inference-engine-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli \
   --kb src/main/resources/kb/diagnostico-medico.kb \
   --mode backward \
   --goal Diagnostico \
@@ -219,7 +219,7 @@ java -cp target/udistrital-expert-system-inference-engine-java-1.0.0.jar:Absolut
 Para entornos de escritorio con soporte de ventanas:
 
 ```bash
-java -cp target/udistrital-expert-system-inference-engine-java-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli --gui
+java -cp target/java-udistrital-expert-system-inference-engine-1.0.0.jar:AbsoluteLayout.jar edu.udistrital.expert.cli.ExpertSystemCli --gui
 ```
 
 Caracteristicas de la interfaz Swing:

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.udistrital</groupId>
-    <artifactId>udistrital-expert-system-inference-engine-java</artifactId>
+    <artifactId>java-udistrital-expert-system-inference-engine</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>udistrital-expert-system-inference-engine-java</name>
+    <name>java-udistrital-expert-system-inference-engine</name>
     <description>Motor de inferencia academico y sistema experto con encadenamiento hacia adelante, hacia atras, mixto y factores de certeza de Shortliffe (MYCIN). Universidad Distrital Francisco Jose de Caldas.</description>
 
     <properties>

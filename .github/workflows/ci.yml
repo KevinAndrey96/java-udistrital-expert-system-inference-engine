@@ -35,11 +35,11 @@ jobs:
 
       - name: Verify CLI Execution (Multi-Domain Demo)
         run: |
-          java -cp "target/udistrital-expert-system-inference-engine-java-1.0.0.jar:AbsoluteLayout.jar" edu.udistrital.expert.cli.ExpertSystemCli --demo
+          java -cp "target/java-udistrital-expert-system-inference-engine-1.0.0.jar:AbsoluteLayout.jar" edu.udistrital.expert.cli.ExpertSystemCli --demo
 
       - name: Verify KB External Loading (Animal Taxonomy)
         run: |
-          java -cp "target/udistrital-expert-system-inference-engine-java-1.0.0.jar:AbsoluteLayout.jar" edu.udistrital.expert.cli.ExpertSystemCli --kb src/main/resources/kb/clasificacion-animales.kb --goal Especie
+          java -cp "target/java-udistrital-expert-system-inference-engine-1.0.0.jar:AbsoluteLayout.jar" edu.udistrital.expert.cli.ExpertSystemCli --kb src/main/resources/kb/clasificacion-animales.kb --goal Especie
 
   python-verification:
     name: Architecture & Engine Verification Suite
